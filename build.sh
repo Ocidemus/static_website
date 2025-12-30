@@ -1,2 +1,2 @@
 
-python3 src/main.py "https://github.com/Ocidemus/static_website"
+python3 src/main.py "https://github.io/Ocidemus/static_website"
