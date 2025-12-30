@@ -29,12 +29,12 @@ def generate_page(from_path, template_path, dest_path , basepath):
     title = extract_title(md_content)
     template_content = template_content.replace("{{ title }}", title)
     final_content = template_content.replace("{{ content }}", html_content)
-    
-    final_content = final_content.replace("href=\"/", f"href=\"{basepath}/")
-    final_content = final_content.replace("src=\"/", f"src=\"{basepath}/")
+
+    final_html = final_content.replace('href="/', f'href="{basepath}')
+    final_html = final_html.replace('src="/', f'src="{basepath}')
     
     with open(dest_path, "w", encoding="utf-8") as f:
-        f.write(final_content)
+        f.write(final_html)
 
 def copy_files(items, source_dir, dest_dir):
     for item in items:
