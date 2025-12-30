@@ -11,7 +11,13 @@ class markdownBlockType(Enum):
     QUOTE = "quote"
     UNORDERED_LIST = "unordered_list"
     ORDERED_LIST = "ordered_list"
-    
+
+def extract_title(markdown):
+    lines = markdown.split("\n")
+    for line in lines:
+        if line.startswith("# "):
+            return line[2:].strip()
+    return "Untitled"
     
 def markdown_to_blocks(markdown):
     blocks= markdown.split("\n\n")

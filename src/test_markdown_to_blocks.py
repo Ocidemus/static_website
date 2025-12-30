@@ -1,4 +1,4 @@
-from markdown_to_blocks import markdown_to_blocks , block_to_block_type, markdownBlockType ,markdown_to_html_node
+from markdown_to_blocks import extract_title, markdown_to_blocks , block_to_block_type, markdownBlockType ,markdown_to_html_node
 import unittest
 import textwrap
 class TestMarkdownToBlocks(unittest.TestCase):
@@ -152,5 +152,43 @@ the **same** even with inline stuff
             html,
         "<div><pre><code>This is text that _should_ remain\nthe **same** even with inline stuff\n</code></pre></div>",
     )
+    def test_title_extraction(self):
+        md = """# My Document Title
+This is some content."""
+        title = extract_title(md)
+        self.assertEqual(title, "My Document Title")    
+        
+        
+    def test_title_extraction_no_title(self):
+        md = """This document has no title.
+Just content."""
+        title = extract_title(md)
+        self.assertEqual(title, "Untitled") 
+    
+    def test_title_extraction_title_not_first_line(self):
+        md = """This document has no title.
+# My Document Title
+Just content."""
+        title = extract_title(md)
+        self.assertEqual(title, "My Document Title")        
+        
+    def test_empty_title(self):
+        md = """"""
+        title = extract_title(md)
+        self.assertEqual(title, "Untitled") 
+        
+    def test_title_extraction_multiple_titles(self):
+        md = """# First Title
+Some content.   
+# Second Title
+More content."""
+        title = extract_title(md)
+        self.assertEqual(title, "First Title")
+        
+        
+        
+        
+        
+    
 if __name__ == "__main__":
     unittest.main()
